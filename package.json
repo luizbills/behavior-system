@@ -1,0 +1,31 @@
+{
+  "name": "behavior-system",
+  "version": "0.1.0",
+  "description": "A behavior system for javascript games inspired by Construct 2",
+  "main": "lib/behavior-system.js",
+  "author": "Luiz Bills",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "scripts": {
+    "lint": "standard lib/**/*"
+  },
+  "keywords": [
+    "game",
+    "behavior",
+    "system",
+    "html5",
+    "canvas",
+    "modular",
+    "component"
+  ],
+  "devDependencies": {
+    "browserify": "13.0.0",
+    "standard": "6.0.8"
+  }
+}
