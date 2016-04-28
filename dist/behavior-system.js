@@ -86,22 +86,21 @@ BehaviorSystem.prototype = {
   },
 
   enable: function (gameObject) {
-    if (!gameObject.behaviors) {
+    if (gameObject.behaviors === NULL) {
       var container = new BehaviorContainer(gameObject, this)
-      var id = this._children.push(container) - 1
-
-      container.id = id
+      container.id = this._children.push(container) - 1
       gameObject.behaviors = container
     }
     return gameObject
   },
 
   disable: function (gameObject) {
-    var index = gameObject.behaviors && gameObject.behaviors.id
-    if (index) {
+    if (gameObject.behaviors !== NULL) {
+      var index = gameObject.behaviors.id
       gameObject.behaviors = NULL
       this._children[index] = NULL
     }
+    return gameObject
   },
 
   processAll: function (methodName) {
@@ -109,7 +108,10 @@ BehaviorSystem.prototype = {
     var len = this._children.length
 
     for (; i < len; i++) {
-      this._children[i].process(methodName)
+      var child = this._children[i]
+      if (child !== NULL) {
+        child.process(methodName)
+      }
     }
   }
 }

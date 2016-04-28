@@ -14,7 +14,8 @@
   },
   "scripts": {
     "lint": "standard lib/**/*",
-    "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js"
+    "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js",
+    "publish": "npm run build && npm run publish"
   },
   "keywords": [
     "game",
