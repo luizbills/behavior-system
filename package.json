@@ -13,7 +13,8 @@
     "url": ""
   },
   "scripts": {
-    "lint": "standard lib/**/*"
+    "lint": "standard lib/**/*",
+    "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js"
   },
   "keywords": [
     "game",
