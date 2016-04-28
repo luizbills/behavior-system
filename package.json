@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "standard lib/**/*",
     "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js",
-    "publish": "npm run build && npm publish"
+    "prepublish": "npm run build"
   },
   "keywords": [
     "game",
@@ -30,5 +30,8 @@
   "devDependencies": {
     "browserify": "13.0.0",
     "standard": "6.0.8"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }
