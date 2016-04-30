@@ -59,7 +59,7 @@ test('BehaviorContainer#remove', function (assert) {
   expected = false
   assert.equal(actual, expected, 'should erase the key used by the removed behavior')
 
-  obj = { val: 0}
+  obj = { val: 0 }
   container = new BehaviorContainer(obj)
   Behavior = { update: function (obj) { obj.val += 100 } }
   container.set('test', Behavior)
