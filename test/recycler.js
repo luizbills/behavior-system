@@ -82,5 +82,3 @@ test('Recycler#getNextIndex', function (assert) {
   // tested on tests of 'Recycler#push'
   assert.end()
 })
-
-
