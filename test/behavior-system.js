@@ -1,5 +1,5 @@
 var test = require('tape')
-var BehaviorSystem = require('../')
+var BehaviorSystem = require('../lib/behavior-system')
 var system = new BehaviorSystem()
 
 test('BehaviorSystem#enable', function (assert) {
