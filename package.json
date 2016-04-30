@@ -1,6 +1,6 @@
 {
   "name": "behavior-system",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "A behavior system for javascript games inspired by Construct 2",
   "main": "lib/behavior-system.js",
   "author": "Luiz Bills",
@@ -13,6 +13,7 @@
     "url": "https://github.com/luizbills/behavior-system/issues"
   },
   "scripts": {
+    "test": "tape test/**/*.js  | tap-min",
     "lint": "standard lib/**/*",
     "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js",
     "prepublish": "npm run build"
@@ -29,7 +30,9 @@
   ],
   "devDependencies": {
     "browserify": "13.0.0",
-    "standard": "6.0.8"
+    "standard": "6.0.8",
+    "tap-min": "1.1.0",
+    "tape": "4.5.1"
   },
   "files": [
     "lib/",
