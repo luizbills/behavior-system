@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "tape test/**/*.js  | tap-min",
-    "lint": "standard lib/**/*",
+    "lint": "standard lib/**/* test/**/*",
     "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js",
     "prepublish": "npm run build"
   },
