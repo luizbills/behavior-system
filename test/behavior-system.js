@@ -81,7 +81,7 @@ test('BehaviorSystem#processAll', function (assert) {
 
   actual = [obj1.val, obj2.val]
   expected = [30, 35] // [(5 + 10 + 15), (10 + 10 + 15)]
-  assert.deepEqual(actual, expected, 'should call ALL determined methods (first argument) from ALL behaviors in ALL enabled object')
+  assert.deepEqual(actual, expected, 'should call the determined method (first argument) from ALL behaviors in ALL enabled object by THIS system')
 
   assert.end()
 })
