@@ -1,6 +1,6 @@
 {
   "name": "behavior-system",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A behavior system for javascript games inspired by Construct 2",
   "main": "lib/behavior-system.js",
   "author": "Luiz Bills",
@@ -38,6 +38,6 @@
   "files": [
     "./example.js",
     "lib/",
-    "dist/",
+    "dist/"
   ]
 }
