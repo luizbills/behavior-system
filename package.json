@@ -36,7 +36,7 @@
     "tape": "4.5.1"
   },
   "files": [
-    "./example.js",
+    "example.js",
     "lib/",
     "dist/"
   ]
