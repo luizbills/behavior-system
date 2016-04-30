@@ -13,7 +13,7 @@ or
 ```html
 <script src="//npmcdn.com/behavior-system@latest/dist/behavior-system.js"></script>
 ```
-**[DOWNLOAD HERE](https://npmcdn.com/behavior-system@latest/dist/behavior-system.js)**
+**[DOWNLOAD HERE (UMD)](https://npmcdn.com/behavior-system@latest/dist/behavior-system.js)**
 
 ## Usage
 
