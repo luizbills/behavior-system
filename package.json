@@ -18,6 +18,7 @@
     "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js",
     "prepublish": "npm run build"
   },
+  "tonicExampleFilename": "example.js",
   "keywords": [
     "game",
     "behavior",
