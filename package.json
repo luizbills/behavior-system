@@ -16,6 +16,7 @@
     "test": "tape test/**/*.js | tap-min",
     "lint": "standard lib/**/* test/**/*",
     "build": "browserify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js",
+    "min": "uglifyjs dist/behavior-system.js -c -m -o dist/behavior-system.min.js",
     "prepublish": "npm run build"
   },
   "tonicExampleFilename": "example.js",
@@ -33,7 +34,8 @@
     "browserify": "13.0.0",
     "standard": "6.0.8",
     "tap-min": "1.1.0",
-    "tape": "4.5.1"
+    "tape": "4.5.1",
+    "uglify-js": "2.6.2"
   },
   "files": [
     "example.js",
