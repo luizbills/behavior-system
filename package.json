@@ -15,10 +15,10 @@
   "scripts": {
     "test": "tape test/**/*.js | tap-min",
     "lint": "standard lib/**/* test/**/*",
-    "build": "browserify lib/behavior-system.js -s BehaviorSystem -o ./dist/behavior-system.js",
+    "build": "browserify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js",
     "prepublish": "npm run build"
   },
-  "tonicExampleFilename": "./example.js",
+  "tonicExampleFilename": "example.js",
   "keywords": [
     "game",
     "behavior",
