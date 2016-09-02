@@ -1,5 +1,5 @@
 # Download browser versions
 
-[uncompressed](https://npmcdn.com/behavior-system@latest/dist/behavior-system.js)
+[uncompressed](https://unpkg.com/behavior-system@latest/dist/behavior-system.js)
 
-[compressed](https://npmcdn.com/behavior-system@latest/dist/behavior-system.min.js)
+[compressed](https://unpkg.com/behavior-system@latest/dist/behavior-system.min.js)
