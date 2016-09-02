@@ -11,9 +11,9 @@
 or
 
 ```html
-<script src="//npmcdn.com/behavior-system@latest/dist/behavior-system.js"></script>
+<script src="//unpkg.com/behavior-system@latest/dist/behavior-system.js"></script>
 ```
-**[DOWNLOAD HERE (UMD)](https://npmcdn.com/behavior-system@latest/dist/behavior-system.js)**
+**[DOWNLOAD HERE (UMD)](https://unpkg.com/behavior-system@latest/dist/behavior-system.js)**
 
 ## Usage
 
