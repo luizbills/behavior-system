@@ -29,6 +29,14 @@ test('BehaviorContainer#set', function (assert) {
   expected = 1000 // 10 + 990
   assert.equal(actual, expected, 'have a third argument that should extend and overrides the default `.options` of behavior')
 
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+
+  actual = container.set('b', Behavior)
+  expected = container.get('b')
+  assert.equal(actual, expected, 'should return the newly created behavior instance')
+
   assert.end()
 })
 
@@ -157,4 +165,3 @@ test('BehaviorContainer#process', function (assert) {
 
   assert.end()
 })
-
