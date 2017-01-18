@@ -9,16 +9,14 @@ var Movement = {
 
 	update: function (entity, opts) {
 		// entity is a object with the behavior
-  		// opts is a object with the settings of this behavior instance
+		// opts is a object with the settings of this behavior instance
 		entity.x += opts.speedX
-  		entity.y += opts.speedY
-
-  		return entity
+		entity.y += opts.speedY
 	},
 
 	position: function (entity, opts) {
 		// you can return values in any behavior method
-  		return { x: entity.x, y: entity.y }
+		return { x: entity.x, y: entity.y }
 	},
 }
 
