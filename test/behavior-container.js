@@ -1,167 +1,250 @@
 var test = require('tape')
 var BehaviorContainer = require('../lib/behavior-container')
 
-test('BehaviorContainer#set', function (assert) {
-  var actual
-  var expected
-  var obj
-  var container
-  var Behavior
+test('Behaviorcontainer.set', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior,
+    key
 
   obj = { val: 0 }
   container = new BehaviorContainer(obj)
-  Behavior = { create: function (obj) { obj.val += 10 } }
+  Behavior = { create: (obj) => (obj.val = 10) }
   container.set('b', Behavior)
-
   actual = obj.val
   expected = 10
-  assert.equal(actual, expected, 'should call the method `.create` (if exists) of the added behavior')
+  assert.equal(actual, expected, 'should call the method `create` (if exists) of the newly behavior instance')
 
   obj = { val: 0 }
   container = new BehaviorContainer(obj)
   Behavior = {
-    options: { x: 10, y: 0 },
-    create: function (obj, opts) { obj.val = opts.x + opts.y }
+    options: { val: 10 },
+    create: (obj, opts) => (obj.val = opts.val)
   }
-  container.set('b', Behavior, { y: 990 })
-
+  container.set('b', Behavior, { val: 20 })
   actual = obj.val
-  expected = 1000 // 10 + 990
-  assert.equal(actual, expected, 'have a third argument that should extend and overrides the default `.options` of behavior')
+  expected = 20
+  assert.equal(actual, expected, 'have a third argument that should extend and overrides the default `.options` of behavior model')
 
   obj = {}
   container = new BehaviorContainer(obj)
   Behavior = {}
+  key = 'a'
+  actual = container.set(key, Behavior)
+  expected = key
+  assert.equal(actual, expected, 'should return the key of newly created behavior instance')
 
-  actual = container.set('b', Behavior)
-  expected = container.get('b')
-  assert.equal(actual, expected, 'should return the newly created behavior instance')
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  key = ''
+  actual = container.set(key, Behavior)
+  expected = false
+  assert.equal(actual, expected, 'should returns false if the key.length == 0')
+
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  key = 'b'
+  container.set(key, Behavior)
+  actual = container.set(key, Behavior)
+  expected = false
+  assert.equal(actual, expected, 'should returns false if the object already has added a behavior using the key')
 
   assert.end()
 })
 
 test('BehaviorContainer#remove', function (assert) {
-  var actual
-  var expected
-  var obj
-  var container
-  var Behavior
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
 
-  obj = { val: 999 }
+  obj = { val: 0 }
   container = new BehaviorContainer(obj)
-  Behavior = { destroy: function (obj) { obj.val = 0 } }
+  Behavior = { destroy: (obj) => (obj.val = 10) }
   container.set('b', Behavior)
   container.remove('b')
-
   actual = obj.val
-  expected = 0
-  assert.equal(actual, expected, 'should call the method `.destroy` (if exists) of the removed behavior')
+  expected = 10
+  assert.equal(actual, expected, 'should call the method `destroy` (if exists) of the removed behavior instance')
 
   obj = {}
   container = new BehaviorContainer(obj)
   Behavior = {}
-  container.set('xxx', Behavior)
-  container.remove('xxx')
+  container.set('b', Behavior)
+  actual = container.remove('b')
+  expected = true
+  assert.equal(actual, expected, 'should return true when have a behavior instance to remove')
 
-  actual = container.has('xxx')
-  expected = false
-  assert.equal(actual, expected, 'should erase the key used by the removed behavior')
-
-  obj = { val: 0 }
+  obj = {}
   container = new BehaviorContainer(obj)
-  Behavior = { update: function (obj) { obj.val += 100 } }
-  container.set('test', Behavior)
-  container.remove('test')
-  container.process('update')
+  Behavior = {}
+  container.set('b', Behavior)
+  container.remove('b')
+  actual = container.remove('b')
+  expected = false
+  assert.equal(actual, expected, 'should return false when not have a behavior instance to remove')
 
-  actual = obj.val
-  expected = 0
-  assert.equal(actual, expected, 'should make the methods of the removed behavior don\'t be called by `.process`')
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  container.set('b', Behavior)
+  container.remove('b')
+  actual = container.has('b')
+  expected = false
+  assert.equal(actual, expected, 'should remove the behavior instance of object')
+
+  assert.end()
+})
+
+test('BehaviorContainer#removeAll', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container
+
+  obj = {}
+  container = new BehaviorContainer(obj)
+  container.set('b', {})
+  container.set('b2', {})
+  container.set('b3', {})
+  container.removeAll()
+  actual = [container.has('b'), container.has('b2'), container.has('b3')]
+  expected = [false, false, false]
+  assert.deepEqual(actual, expected, 'should remove all behavior instances of object')
 
   assert.end()
 })
 
 test('BehaviorContainer#has', function (assert) {
-  var actual
-  var expected
-  var obj
-  var container
-  var Behavior
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
 
   obj = {}
   container = new BehaviorContainer(obj)
-  Behavior = { /* do nothing */ }
-  container.set('exists', Behavior)
-
-  actual = container.has('exists')
+  Behavior = {}
+  container.set('b', Behavior)
+  actual = container.has('b')
   expected = true
-  assert.equal(actual, expected, 'should returns a `true` when the key exists')
+  assert.equal(actual, expected, 'should returns true when the key exists')
 
   obj = {}
   container = new BehaviorContainer(obj)
-
-  actual = container.has('not exists')
+  Behavior = {}
+  container.set('b', Behavior)
+  container.remove('b')
+  actual = container.has('b')
   expected = false
-  assert.equal(actual, expected, 'should returns a `true` when the key exists')
-
-  assert.end()
-})
-
-test('BehaviorContainer#get', function (assert) {
-  var actual
-  var expected
-  var obj
-  var container
-  var Behavior
-  var key
-
-  obj = {}
-  container = new BehaviorContainer(obj)
-
-  actual = container.get('test')
-  expected = undefined
-  assert.equal(actual, expected, 'should returns `undefined` when an unknow key is passed')
-
-  obj = {}
-  container = new BehaviorContainer(obj)
-  Behavior = { /* do nothing */ }
-  key = 'the key'
-  container.set(key, Behavior)
-
-  actual = container.get(key).options.$key
-  expected = key
-  assert.equal(actual, expected, 'should returns an instance (copy) of behavior when the key exists')
+  assert.equal(actual, expected, 'should returns false when the key not exists')
 
   assert.end()
 })
 
 test('BehaviorContainer#process', function (assert) {
-  var actual
-  var expected
-  var obj
-  var container
-  var Behavior1
-  var Behavior2
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
 
   obj = { val: 0 }
   container = new BehaviorContainer(obj)
-  Behavior1 = {
-    update: function (obj) {
-      obj.val += 20
+  Behavior = { update: (obj) => (obj.val = 10) }
+  container.set('b', Behavior)
+  container.process('b', 'update')
+  actual = obj.val
+  expected = 10
+  assert.equal(actual, expected, 'should call the determined method (second argument) from behavior with the key (first argument) of the container')
+
+  const extras = [1, 2, 3, 4]
+  obj = { val: 0 }
+  container = new BehaviorContainer(obj)
+  Behavior = { update: (obj, opts, a, b, c, d) => (obj.val = [a, c, b, d]) }
+  container.set('b', Behavior)
+  container.process('b', 'update', extras[0], extras[2], extras[1], extras[3])
+  actual = obj.val
+  expected = extras
+  assert.deepEqual(actual, expected, 'should pass extra arguments to the methods')
+
+  obj = { val: 0 }
+  container = new BehaviorContainer(obj)
+  Behavior = { update: (obj) => (obj.val = 10) }
+  container.set('b', Behavior)
+  container.remove('b')
+  container.process('b', 'update')
+  actual = obj.val
+  expected = 0
+  assert.deepEqual(actual, expected, 'don\'t should call the method of removed behavior instances')
+
+  obj = { val: 0 }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    update (obj) {
+      obj.val = 10
+      return obj.val
     }
   }
-  Behavior2 = {
+  container.set('b', Behavior)
+  actual = container.process('b', 'update')
+  expected = 10
+  assert.deepEqual(actual, expected, 'the methods can return values')
+
+  assert.end()
+})
+
+test('BehaviorContainer#processAll', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior,
+    Behavior2
+
+  obj = { val: 0 }
+  container = new BehaviorContainer(obj)
+  Behavior = {
     update: function (obj) {
       obj.val += 10
     }
   }
-  container.set('b1', Behavior1)
+  container.set('b', Behavior)
+  Behavior2 = {
+    update: function (obj) {
+      obj.val += 100
+    }
+  }
   container.set('b2', Behavior2)
-  container.process('update')
-
+  container.processAll('update')
   actual = obj.val
-  expected = 30
-  assert.equal(actual, expected, 'should call the determined method (first argument) from ALL behaviors on THIS container')
+  expected = 110
+  assert.equal(actual, expected, 'should call the determined method (first argument) from ALL behaviors of the container')
+
+  obj = { val: 0 }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    update: function (obj) {
+      obj.val += 10
+    }
+  }
+  container.set('b', Behavior)
+  Behavior2 = {
+    update: function (obj) {
+      obj.val += 100
+    }
+  }
+  container.set('b2', Behavior2)
+  container.remove('b')
+  container.processAll('update')
+  actual = obj.val
+  expected = 100
+  assert.deepEqual(actual, expected, 'don\'t should call the method of removed behavior instances')
 
   assert.end()
 })

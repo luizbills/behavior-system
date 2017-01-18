@@ -1,32 +1,28 @@
-var test = require('tape')
-var extend = require('../lib/helper/extend')
+const test = require('tape')
+const extend = require('../lib/helper/extend')
 
 test('extend', function (assert) {
-  var actual
-  var expected
-  var dest
-  var source
-  var res
+  let actual
+  let expected
+  let dest
+  let source
 
   dest = {}
-
   actual = extend(dest)
   expected = dest
-  assert.equal(actual, expected, 'ever returns the first argument')
+  assert.equal(actual, expected, 'should returns the first argument')
 
-  dest = {a: 1, b: 2}
-  source = {c: 3}
-  res = {a: 1, b: 2, c: 3}
+  dest = {}
+  source = {a: 3}
   actual = extend(dest, source)
-  expected = res
-  assert.deepEqual(actual, expected, 'should populates the argument `dest` with the properties of `source`')
+  expected = {a: 3}
+  assert.deepEqual(actual, expected, 'should populates the first argument with the properties of second argument')
 
-  dest = {a: 1, b: 5}
+  dest = {a: 1}
   source = {a: 4}
-  res = {a: 4, b: 5}
   actual = extend(dest, source)
-  expected = res
-  assert.deepEqual(actual, expected, 'should make the properties of `source` overrides the properties of `dest`')
+  expected = {a: 4}
+  assert.deepEqual(actual, expected, 'should make the properties of second argument overrides the properties of first argument')
 
   assert.end()
 })

@@ -1,44 +1,64 @@
-var BehaviorSystem = require('behavior-system')
+var BehaviorSystem = require('./lib/behavior-system')
 
-var BehaviorMovement= {}
-// Behavior settings
-BehaviorMovement.options = {}
-// Default velocity of the movement
-BehaviorMovement.options.speedX = 2
-BehaviorMovement.options.speedY = 4
-// The 'update' method of our behavior
-BehaviorMovement.update = function (entity, opts) {
-  // entity is a object with the behavior
-  // opts is a object with the settings of this behavior instance
+var Movement = {
+	options: {
+		// default settings
+		speedX: 0,
+		speedY: 0
+	},
 
-  // the moviment
-  entity.x += opts.speedX
-  entity.y += opts.speedY
+	update: function (entity, opts) {
+		// entity is a object with the behavior
+  		// opts is a object with the settings of this behavior instance
+		entity.x += opts.speedX
+  		entity.y += opts.speedY
+
+  		return entity
+	},
+
+	position: function (entity, opts) {
+		// you can return values in any behavior method
+  		return { x: entity.x, y: entity.y }
+	},
 }
 
+// create a system to control all objects with behaviors
 var system = new BehaviorSystem()
 
-// a simple actor
-var myEntity = { x: 0, y: 0 }
-system.enable(myEntity)
+// a simple game object
+var entity = { x: 0, y: 0 }
 
-// to add a behavior you need choice a unique name to this instance on entity
-// (your game objects can have many instances of a same behavior, just choose differents names)
-var name = 'movement'
-// in this instance `options.speedX` will be 1, instead of 2 (default)
-var customSettings = { speedX: 1 }
-myEntity.behaviors.set(name, BehaviorMovement, customSettings)
+// enable this entity to use behaviors
+system.enable(entity)
 
-console.log(myEntity) // => { x: 0, y: 0 }
+// to add a behavior you need choice a unique name (a key) to this instance on entity
+// (your entities can have many instances of a same behavior, just choose differents keys)
+var key = 'movement'
 
-system.processAll('update') // call the method update of ALL behavior on entities enabled for this system
-system.processAll('update') // 2 times
-system.processAll('update') // 3 times
+// in this instance `options.speedX` will be 1, instead of 0 (default)
+var settings = { speedX: 1 }
+entity.behaviors.set(key, Movement, settings)
 
-console.log(myEntity) // => { x: 3, y: 12 }
-myEntity.behaviors.remove('movement') // remove the behavior with name 'movement'
+console.log(entity) // => { x: 0, y: 0, behaviors: {...} }
 
-system.processAll('update')
-system.processAll('update')
-console.log(myEntity) // => { x: 3, y: 12 }
-// no changes because this entity not have the MovementBehavior anymore
+// call the method 'update' of a behavior with the key 'movement' in this entity
+entity.behaviors.process('movement', 'update')
+
+// call the method 'update' of all behaviors in this entity
+entity.behaviors.processAll('update')
+
+// call the method 'update' of all entities enabled by this system
+system.globalProcessAll('update')
+
+// remember: you can return values in any behavior method
+var position = entity.behaviors.process('movement', 'position')
+console.log('final position:', position) // => { x: 3, y: 0 }
+
+// remove the behavior with name/key ("movement") used before
+entity.behaviors.remove('movement')
+
+console.log('the entity has a key "movement"?', entity.behaviors.has('movement') ? 'yes' : 'no')
+
+// or
+// remove all 'Movement' behavior instances in this entity
+entity.behaviors.remove(Movement)
