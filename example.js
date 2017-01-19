@@ -63,11 +63,14 @@ system.globalProcessAll('update')
 const position = entity.behaviors.process('mov', 'position')
 console.log('final position:', position) // => { x: 3, y: 0 }
 
-// remove the behavior with name/key ("movement") used before
+// remove the behavior with name/key ("mov") used before
 entity.behaviors.remove('mov')
+// or
+// remove all behavior instances of this entity
+entity.behaviors.removeAll()
 
+// check a key with `.has`
 console.log('the entity has a key "mov"?', entity.behaviors.has('mov') ? 'yes' : 'no')
 
-// or
-// remove all 'mov' behavior instances in this entity
-entity.behaviors.remove(Movement)
+// When you no longer need a entity use the `system.disable`
+system.disable(entity)
