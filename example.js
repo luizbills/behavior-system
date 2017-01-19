@@ -1,6 +1,6 @@
-var BehaviorSystem = require('./lib/behavior-system')
+const BehaviorSystem = require('behavior-system')
 
-var Movement = {
+const Movement = {
 	options: {
 		// default settings
 		speedX: 0,
@@ -18,29 +18,40 @@ var Movement = {
 		// you can return values in any behavior method
 		return { x: entity.x, y: entity.y }
 	},
+
+	create: function (entity, opts) {
+		// called when an instance of this Behavior is added on a game object
+		console.log('created a BehaviorMovement with key:', opts.$key)
+		// hint: opts.$key is avaliable in any behavior instance
+	},
+
+	destroy: function (entity, opts) {
+		// called when an instance of this Behavior is removed of a game object
+		console.log('destroyed a BehaviorMovement with key:', opts.$key)
+	},
 }
 
 // create a system to control all objects with behaviors
-var system = new BehaviorSystem()
+const system = new BehaviorSystem()
 
 // a simple game object
-var entity = { x: 0, y: 0 }
+const entity = { x: 0, y: 0 }
 
 // enable this entity to use behaviors
 system.enable(entity)
 
 // to add a behavior you need choice a unique name (a key) to this instance on entity
 // (your entities can have many instances of a same behavior, just choose differents keys)
-var key = 'movement'
+const key = 'mov'
 
 // in this instance `options.speedX` will be 1, instead of 0 (default)
-var settings = { speedX: 1 }
+const settings = { speedX: 1 }
 entity.behaviors.set(key, Movement, settings)
 
-console.log(entity) // => { x: 0, y: 0, behaviors: {...} }
+console.log(entity) // => { x: 0, y: 0, {...} }
 
-// call the method 'update' of a behavior with the key 'movement' in this entity
-entity.behaviors.process('movement', 'update')
+// call the method 'update' of a behavior with the key 'mov' in this entity
+entity.behaviors.process('mov', 'update')
 
 // call the method 'update' of all behaviors in this entity
 entity.behaviors.processAll('update')
@@ -49,14 +60,14 @@ entity.behaviors.processAll('update')
 system.globalProcessAll('update')
 
 // remember: you can return values in any behavior method
-var position = entity.behaviors.process('movement', 'position')
+const position = entity.behaviors.process('mov', 'position')
 console.log('final position:', position) // => { x: 3, y: 0 }
 
 // remove the behavior with name/key ("movement") used before
-entity.behaviors.remove('movement')
+entity.behaviors.remove('mov')
 
-console.log('the entity has a key "movement"?', entity.behaviors.has('movement') ? 'yes' : 'no')
+console.log('the entity has a key "mov"?', entity.behaviors.has('mov') ? 'yes' : 'no')
 
 // or
-// remove all 'Movement' behavior instances in this entity
+// remove all 'mov' behavior instances in this entity
 entity.behaviors.remove(Movement)
