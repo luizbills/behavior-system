@@ -2,6 +2,8 @@
 
 *A behavior system for javascript games inspired by Construct 2.*
 
+**size: 1.4KB (min+gzip)**
+
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ## Install
@@ -15,9 +17,9 @@ or
 ```
 **[DOWNLOAD HERE (UMD)](https://unpkg.com/behavior-system@latest/dist/behavior-system.js)**
 
-## Usage
+## Getting Started
 
-[See this little tutorial](https://github.com/luizbills/behavior-system/wiki/Getting-Started)
+[Introduction Guide](https://github.com/luizbills/behavior-system/wiki/Getting-Started)
 
 ## License
 MIT
