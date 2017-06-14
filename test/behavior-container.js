@@ -147,6 +147,177 @@ test('BehaviorContainer#has', function (assert) {
   assert.end()
 })
 
+test('BehaviorContainer#pause', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
+
+  obj = {
+    x: 10
+  }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    change: (obj) => (obj.x = 20)
+  }
+  container.set('b', Behavior)
+  container.pause('b')
+  container.process('b', 'change')
+  actual = obj.x
+  expected = 10
+  assert.equal(actual, expected, 'should not process/call methods of a paused behavior instance')
+
+  obj = {
+    x: 0
+  }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    paused: (obj) => (obj.x = 10)
+  }
+  container.set('b', Behavior)
+  container.pause('b')
+  actual = obj.x
+  expected = 10
+  assert.equal(actual, expected, 'should call the method `paused` (if exists) of the paused behavior instance')
+
+  obj = {
+    x: 0
+  }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    paused: (obj) => (obj.x += 10)
+  }
+  container.set('b', Behavior)
+  container.pause('b')
+  container.pause('b')
+  container.pause('b')
+  actual = obj.x
+  expected = 10
+  assert.equal(actual, expected, 'should not call the method `paused` (if exists) again of a already paused behavior instance')
+
+  assert.end()
+})
+
+test('BehaviorContainer#resume', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
+
+  obj = {
+    x: 0
+  }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    resumed: (obj) => (obj.x = 10)
+  }
+  container.set('b', Behavior)
+  container.pause('b')
+  container.resume('b')
+  actual = obj.x
+  expected = 10
+  assert.equal(actual, expected, 'should call the method `resumed` (if exists) of the resumed behavior instance')
+
+  obj = {
+    x: 0
+  }
+  container = new BehaviorContainer(obj)
+  Behavior = {
+    resumed: (obj) => (obj.x += 10)
+  }
+  container.set('b', Behavior)
+  container.pause('b')
+  container.unpause('b')
+  container.resume('b')
+  container.unpause('b')
+  actual = obj.x
+  expected = 10
+  assert.equal(actual, expected, 'should not call the method `resumed` (if exists) again of a already resumed behavior instance')
+
+  actual = BehaviorContainer.prototype.unpause
+  expected = BehaviorContainer.prototype.resume
+  assert.equal(actual, expected, 'should has a alias named `unpause`')
+
+  assert.end()
+})
+
+test('BehaviorContainer#pauseAll', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
+
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  container.set('b1', Behavior)
+  container.set('b2', Behavior)
+  container.pauseAll()
+  actual = container.isPaused('b1') && container.isPaused('b2')
+  expected = true
+  assert.equal(actual, expected, 'should pause all behavior instance of the instance')
+
+  assert.end()
+})
+
+test('BehaviorContainer#pauseAll', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
+
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  container.set('b1', Behavior)
+  container.set('b2', Behavior)
+  container.pause('b1')
+  container.pause('b2')
+  container.resumeAll()
+  actual = !container.isPaused('b1') && !container.isPaused('b2')
+  expected = true
+  assert.equal(actual, expected, 'should resume/unpause all behavior instance of the instance')
+
+  actual = BehaviorContainer.prototype.unpauseAll
+  expected = BehaviorContainer.prototype.resumeAll
+  assert.equal(actual, expected, 'should has a alias named `unpauseAll`')
+
+  assert.end()
+})
+
+test('BehaviorContainer#isPause', function (assert) {
+  let actual,
+    expected,
+    obj,
+    container,
+    Behavior
+
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  container.set('b', Behavior)
+  container.pause('b')
+  actual = container.isPaused('b')
+  expected = true
+  assert.equal(actual, expected, 'should returns true when the key is paused')
+
+  obj = {}
+  container = new BehaviorContainer(obj)
+  Behavior = {}
+  container.set('bb', Behavior)
+  actual = container.isPaused('bb')
+  container.pause('b')
+  container.resume('b')
+  expected = false
+  assert.equal(actual, expected, 'should returns false when the key is not paused')
+
+  assert.end()
+})
+
 test('BehaviorContainer#process', function (assert) {
   let actual,
     expected,
