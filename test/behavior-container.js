@@ -229,16 +229,11 @@ test('BehaviorContainer#resume', function (assert) {
   }
   container.set('b', Behavior)
   container.pause('b')
-  container.unpause('b')
   container.resume('b')
-  container.unpause('b')
+  container.resume('b')
   actual = obj.x
   expected = 10
   assert.equal(actual, expected, 'should not call the method `resumed` (if exists) again of a already resumed behavior instance')
-
-  actual = BehaviorContainer.prototype.unpause
-  expected = BehaviorContainer.prototype.resume
-  assert.equal(actual, expected, 'should has a alias named `unpause`')
 
   assert.end()
 })
@@ -281,10 +276,6 @@ test('BehaviorContainer#pauseAll', function (assert) {
   actual = !container.isPaused('b1') && !container.isPaused('b2')
   expected = true
   assert.equal(actual, expected, 'should resume/unpause all behavior instance of the instance')
-
-  actual = BehaviorContainer.prototype.unpauseAll
-  expected = BehaviorContainer.prototype.resumeAll
-  assert.equal(actual, expected, 'should has a alias named `unpauseAll`')
 
   assert.end()
 })
