@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2017-06-15
+### Added
+- `BehaviorContainer.prototype.pause(key:string) -> boolean`: pause an instance
+	- The `BehaviorContainer` can't process methods of a paused `'key'`
+	- `paused` method is called when a behavior instance is paused
+	- returns a `boolean` to indicate the success/fail
+- `BehaviorContainer.prototype.resume(key:string) -> boolean`: resume an paused instance
+	- `resumed` method is called when a behavior instance is paused
+	- returns a `boolean` to indicate the success/fail
+- `BehaviorContainer.prototype.pauseAll()`: pause all instances of a container
+- `BehaviorContainer.prototype.resumeAll()`: resume all paused instances of a container
+- `BehaviorContainer.prototype.isPaused()`: returns a true if the instance is paused
+
+### Changed
+- now using package `tap-spec` instead `tap-min`
+
 ## [1.0.2] - 2017-01-18
+
 ### Changed
 - updated `example.js`
 
