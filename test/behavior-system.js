@@ -5,34 +5,32 @@ test('BehaviorSystem#enable', function (assert) {
   const system = new BehaviorSystem()
   let actual
   let expected
-  let obj
-  let value
+  let entity
 
-  obj = {}
-  system.enable(obj)
-  actual = obj.behaviors
+  entity = {}
+  system.enable(entity)
+  actual = entity.behaviors
   expected = undefined
-  assert.notEqual(actual, expected, 'should add the property "behaviors" in the object')
+  assert.notEqual(actual, expected, 'should add a ".behaviors" property in the entity')
 
-  obj = {}
-  actual = system.enable(obj)
+  entity = {}
+  actual = system.enable(entity)
   expected = true
-  assert.equal(actual, expected, 'should returns true when the property "behaviors" is defined by the system')
+  assert.equal(actual, expected, 'should returns true when a ".behaviors" property is defined by the system')
 
-  obj = {}
-  system.enable(obj)
-  actual = system.enable(obj) // already enabled
+  entity = {}
+  system.enable(entity)
+  actual = system.enable(entity) // already enabled
   expected = false
-  assert.equal(actual, expected, 'should returns false when the property "behaviors" is already defined')
+  assert.equal(actual, expected, 'should returns false when a ".behaviors" property is already defined')
 
-  value = 5
-  obj = { val: value }
-  system.enable(obj)
-  obj.behaviors.set('b', { update: (obj) => (obj.val = value) })
+  entity = { val: 0 }
+  system.enable(entity)
+  entity.behaviors.set('b', { update: (entity) => ++entity.val })
   system.globalProcessAll('update')
-  actual = obj.val
-  expected = value
-  assert.equal(actual, expected, 'should add the object to the list of enabled objects by the system')
+  actual = entity.val
+  expected = 1
+  assert.equal(actual, expected, 'should add the entity to the list of enabled entities by the system')
 
   assert.end()
 })
@@ -41,50 +39,49 @@ test('BehaviorSystem#disable', function (assert) {
   const system = new BehaviorSystem()
   let actual
   let expected
-  let obj
+  let entity
   let initial
 
-  obj = {}
-  system.enable(obj)
-  system.disable(obj)
-  actual = obj.behaviors
+  entity = {}
+  system.enable(entity)
+  system.disable(entity)
+  actual = entity.behaviors
   expected = undefined
-  assert.equal(actual, expected, 'should set the property "behaviors" in the object to "undefined" if the object was enabled by the system')
+  assert.equal(actual, expected, 'should unset the ".behaviors" property in the entity, if the entity was enabled by the system')
 
-  obj = {}
-  system.enable(obj)
-  actual = system.disable(obj)
+  entity = {}
+  system.enable(entity)
+  actual = system.disable(entity)
   expected = true
-  assert.equal(actual, expected, 'should returns true when the system can disable the object')
+  assert.equal(actual, expected, 'should returns true when the system successful disabled the entity')
 
-  obj = {}
-  system.enable(obj)
-  system.disable(obj)
-  actual = system.disable(obj)
+  entity = {}
+  system.enable(entity)
+  system.disable(entity)
+  actual = system.disable(entity)
   expected = false
-  assert.equal(actual, expected, 'should returns false when the object is already disabled')
+  assert.equal(actual, expected, 'should returns false when the entity is already disabled by the system')
 
-  initial = 0
-  obj = { val: initial }
-  system.enable(obj)
-  obj.behaviors.set('b', {
-    update: function (obj) { obj.val = 5 }
+  entity = { val: 0 }
+  system.enable(entity)
+  entity.behaviors.set('b', {
+    update: (entity) => entity.val++
   })
-  system.disable(obj)
+  system.disable(entity)
   system.globalProcessAll('update')
-  actual = obj.val
-  expected = initial
-  assert.equal(actual, expected, 'should remove the object of the list of enabled objects by the system')
+  actual = entity.val
+  expected = 0
+  assert.equal(actual, expected, 'should remove the entity of the list of enabled entities by the system')
 
-  obj = { val: 0 }
-  system.enable(obj)
-  obj.behaviors.set('b', { destroy: (obj) => (obj.val += 10) })
-  obj.behaviors.set('b2', { destroy: (obj) => (obj.val += 10) })
-  obj.behaviors.set('b3', { destroy: (obj) => (obj.val += 10) })
-  system.disable(obj)
-  actual = obj.val
-  expected = 30
-  assert.equal(actual, expected, 'should remove and call the method "destroy" of all behavior instances of object when the system can disable the object')
+  entity = { val: 0 }
+  system.enable(entity)
+  entity.behaviors.set('b', { destroy: (entity) => entity.val++ })
+  entity.behaviors.set('b2', { destroy: (entity) => entity.val++ })
+  entity.behaviors.set('b3', { destroy: (entity) => entity.val++ })
+  system.disable(entity)
+  actual = entity.val
+  expected = 3
+  assert.equal(actual, expected, 'should remove and call the method "destroy" of all behavior instances of entity when the system successful disabled the entity')
 
   assert.end()
 })
@@ -93,26 +90,25 @@ test('BehaviorSystem#globalProcessAll', function (assert) {
   const system = new BehaviorSystem()
   let actual
   let expected
-  let obj1
-  let obj2
+  let entity1
+  let entity2
+  
+  const behavior = { update: (entity) => entity.val++ }
 
-  obj1 = { val: 0 }
-  system.enable(obj1)
-  obj1.behaviors.set('b', { update: (obj) => (obj.val = 10) })
-  obj1.behaviors.set('b2', {
-    // this don't will run
-    update: (obj) => (obj.val = 1000)
-  })
-  obj1.behaviors.remove('b2')
+  entity1 = { val: 0 }
+  system.enable(entity1)
+  entity1.behaviors.set('b', behavior)
 
-  obj2 = { val: 0 }
-  system.enable(obj2)
-  obj2.behaviors.set('b', { update: (obj) => (obj.val = 20) })
+  entity2 = { val: 1 }
+  system.enable(entity2)
+  entity2.behaviors.set('b', behavior)
+  system.disable(entity2)
 
   system.globalProcessAll('update')
-  actual = [obj1.val, obj2.val]
-  expected = [10, 20]
-  assert.deepEqual(actual, expected, 'should call the determined method (first argument) of ALL behaviors in ALL enabled object by THIS system')
+  
+  actual = [entity1.val, entity2.val]
+  expected = [1, 1]
+  assert.deepEqual(actual, expected, 'should call the wich method/action (first parameter) of ALL behaviors in ALL enabled entities by the system')
 
   assert.end()
 })

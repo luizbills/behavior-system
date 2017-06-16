@@ -356,20 +356,20 @@ test('BehaviorContainer#process', function (assert) {
   container.process('b', 'update')
   actual = entity.val
   expected = 0
-  assert.deepEqual(actual, expected, 'don\'t should call the method of removed behavior instances')
+  assert.equal(actual, expected, 'don\'t should call the method of removed behavior instances')
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
   Behavior = {
     update (entity) {
       entity.val = 10
-      return entity.val
+      return 'ok'
     }
   }
   container.set('b', Behavior)
   actual = container.process('b', 'update')
-  expected = 10
-  assert.deepEqual(actual, expected, 'the methods can return values')
+  expected = 'ok'
+  assert.equal(actual, expected, 'the methods/actions of a behavior can return values when called with ".process"')
 
   assert.end()
 })
