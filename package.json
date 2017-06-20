@@ -13,7 +13,7 @@
     "url": "https://github.com/luizbills/behavior-system/issues"
   },
   "scripts": {
-    "test": "tape test/**/*.js | tap-spec",
+    "test": "tape test/**/*.js | tap-dot",
     "lint": "standard lib/**/* test/**/*",
     "build": "browserify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js",
     "min": "uglifyjs dist/behavior-system.js -c -m -o dist/behavior-system.min.js",
@@ -34,6 +34,7 @@
     "browserify": "^13.0.0",
     "es2040": "^1.2.4",
     "standard": "^6.0.8",
+    "tap-dot": "^1.0.5",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
     "uglify-js": "^2.6.2"
