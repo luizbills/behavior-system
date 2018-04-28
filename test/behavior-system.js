@@ -40,7 +40,6 @@ test('BehaviorSystem#disable', function (assert) {
   let actual
   let expected
   let entity
-  let initial
 
   entity = {}
   system.enable(entity)
@@ -92,7 +91,7 @@ test('BehaviorSystem#globalProcessAll', function (assert) {
   let expected
   let entity1
   let entity2
-  
+
   const behavior = { update: (entity) => entity.val++ }
 
   entity1 = { val: 0 }
@@ -105,7 +104,7 @@ test('BehaviorSystem#globalProcessAll', function (assert) {
   system.disable(entity2)
 
   system.globalProcessAll('update')
-  
+
   actual = [entity1.val, entity2.val]
   expected = [1, 1]
   assert.deepEqual(actual, expected, 'should call the wich method/action (first parameter) of ALL behaviors in ALL enabled entities by the system')
