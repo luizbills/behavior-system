@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0]
+### Changed
+- internal code refactoration
+- better test descriptions
+- now using package `tap-dot` instead `tap-spec`
+- removed the `extend` helper function in favor of `Object.assign`
+
 ## [1.1.0] - 2017-06-15
 ### Added
 - `BehaviorContainer.prototype.pause(key:string) -> boolean`: pause an instance
@@ -21,7 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - now using package `tap-spec` instead `tap-min`
 
 ### Contributors
-- @Oli4242 
+- @Oli4242
 
 ## [1.0.2] - 2017-01-18
 

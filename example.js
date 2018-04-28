@@ -1,34 +1,34 @@
-const BehaviorSystem = require('behavior-system')
+const BehaviorSystem = require('./lib/behavior-system')
 
 const Movement = {
-	options: {
-		// default settings
-		speedX: 0,
-		speedY: 0
-	},
+  options: {
+    // default settings
+    speedX: 0,
+    speedY: 0
+  },
 
-	update: function (entity, opts) {
-		// entity is a object with the behavior
-		// opts is a object with the settings of this behavior instance
-		entity.x += opts.speedX
-		entity.y += opts.speedY
-	},
+  update: function (entity, opts) {
+    // entity is a object with the behavior
+    // opts is a object with the settings of this behavior instance
+    entity.x += opts.speedX
+    entity.y += opts.speedY
+  },
 
-	position: function (entity, opts) {
-		// you can return values in any behavior method
-		return { x: entity.x, y: entity.y }
-	},
+  position: function (entity, opts) {
+    // you can return values in any behavior method
+    return { x: entity.x, y: entity.y }
+  },
 
-	create: function (entity, opts) {
-		// called when an instance of this Behavior is added on a game object
-		console.log('created a BehaviorMovement with key:', opts.$key)
-		// hint: opts.$key is avaliable in any behavior instance
-	},
+  create: function (entity, opts) {
+    // called when an instance of this Behavior is added on a game object
+    console.log('created a BehaviorMovement with key:', opts.$key)
+    // hint: opts.$key is avaliable in any behavior instance
+  },
 
-	destroy: function (entity, opts) {
-		// called when an instance of this Behavior is removed of a game object
-		console.log('destroyed a BehaviorMovement with key:', opts.$key)
-	},
+  destroy: function (entity, opts) {
+    // called when an instance of this Behavior is removed of a game object
+    console.log('destroyed a BehaviorMovement with key:', opts.$key)
+  }
 }
 
 // create a system to control all objects with behaviors
@@ -74,3 +74,5 @@ console.log('the entity has a key "mov"?', entity.behaviors.has('mov') ? 'yes' :
 
 // When you no longer need a entity use the `system.disable`
 system.disable(entity)
+
+console.log(entity)
