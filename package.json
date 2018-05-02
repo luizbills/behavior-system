@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "standard && tape test/**/*.js | tap-dot",
-    "dev": "watchify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js",
+    "dev": "watchify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js -v",
     "build": "browserify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js",
     "min": "uglifyjs dist/behavior-system.js -c -m -o dist/behavior-system.min.js",
     "prepublishOnly": "npm test && npm run build && npm run min"
