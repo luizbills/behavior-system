@@ -14,6 +14,7 @@
   },
   "scripts": {
     "test": "standard && tape test/**/*.js | tap-dot",
+    "coverage": "istanbul cover tape tape test/**/*.js",
     "dev": "watchify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js -v",
     "build": "browserify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js",
     "min": "uglifyjs dist/behavior-system.js -c -m -o dist/behavior-system.min.js",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "browserify": "^16.2.0",
     "es2040": "^1.2.6",
+    "istanbul": "^0.4.5",
     "standard": "^11.0.1",
     "tap-dot": "^1.0.5",
     "tape": "^4.9.0",
