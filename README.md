@@ -1,6 +1,8 @@
 # Behavior System
 
+[![npm version](https://badge.fury.io/js/behavior-system.svg)](https://badge.fury.io/js/behavior-system)
 [![Build Status](https://travis-ci.org/luizbills/behavior-system.svg?branch=master)](https://travis-ci.org/luizbills/behavior-system)
+[![Known Vulnerabilities](https://snyk.io/test/github/luizbills/behavior-system/badge.svg?targetFile=package.json)](https://snyk.io/test/github/luizbills/behavior-system?targetFile=package.json)
 
 *A behavior system for javascript games inspired by Construct 2.*
 
