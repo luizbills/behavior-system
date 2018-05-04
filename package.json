@@ -13,7 +13,8 @@
     "url": "https://github.com/luizbills/behavior-system/issues"
   },
   "scripts": {
-    "test": "standard && tape test/**/*.js | tap-dot",
+    "lint": "standard",
+    "test": "npm run lint && tape test/**/*.js | tap-dot",
     "coverage": "istanbul cover tape tape test/**/*.js",
     "dev": "watchify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js -v",
     "build": "browserify lib/behavior-system.js -t es2040 -s BehaviorSystem -o dist/behavior-system.js",
