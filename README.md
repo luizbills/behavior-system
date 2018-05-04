@@ -1,5 +1,7 @@
 # Behavior System
 
+[![Build Status](https://travis-ci.org/luizbills/behavior-system.svg?branch=master)](https://travis-ci.org/luizbills/behavior-system)
+
 *A behavior system for javascript games inspired by Construct 2.*
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
