@@ -37,7 +37,6 @@
     "babel-preset-env": "^1.6.1",
     "babelify": "^8.0.0",
     "browserify": "^16.2.0",
-    "es2040": "^1.2.6",
     "istanbul": "^0.4.5",
     "standard": "^11.0.1",
     "tap-dot": "^1.0.5",
@@ -60,7 +59,7 @@
         "babelify",
         {
           "presets": [
-            "babel-preset-env"
+            [ "babel-preset-env", { "loose": true} ]
           ]
         }
       ]
