@@ -5,9 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+### Added
+- BREAKING: renamed `BehaviorContainer#id` to `BehaviorContainer#getID()` (now is a function)
+
 ### Changed
 - modern code with classes
 - removed some unused variables
+- minimal internal code changes
+
+### Fixed
+- `BehaviorSystem#disable()` now works correctly and recycles BehaviorContainer ids
 
 ## [1.2.1]
 ### Changed

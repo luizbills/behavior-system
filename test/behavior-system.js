@@ -2,7 +2,7 @@ const test = require('tape')
 const BehaviorSystem = require('../lib/behavior-system')
 
 test('BehaviorSystem#enable', function (assert) {
-  const system = new BehaviorSystem()
+  let system = new BehaviorSystem()
   let actual
   let expected
   let entity
@@ -31,6 +31,16 @@ test('BehaviorSystem#enable', function (assert) {
   actual = entity.val
   expected = 1
   assert.equal(actual, expected, 'should add the entity to the list of enabled entities by the system')
+
+  system = new BehaviorSystem()
+  entity = {}
+  system.enable({})
+  system.enable(entity)
+  actual = entity.behaviors.getID()
+  system.disable(entity)
+  system.enable(entity)
+  expected = 2
+  assert.equal(actual, expected, 'should recycle the BehaviorContainer id of disabled entities')
 
   assert.end()
 })
