@@ -19,7 +19,7 @@
     "dev": "npm test && watchify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js -v",
     "build": "npm test && browserify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js && npm run min",
     "min": "uglifyjs dist/behavior-system.js -cm -o dist/behavior-system.min.js",
-    "prepublishOnly": "npm test && npm run build"
+    "prepublishOnly": "npm run build"
   },
   "tonicExampleFilename": "example.js",
   "keywords": [
