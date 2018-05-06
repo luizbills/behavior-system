@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-- BREAKING: renamed `BehaviorContainer#id` to `BehaviorContainer#getID()` (now is a function)
+- BREAKING: renamed `BehaviorContainer#id` to `BehaviorContainer#getID()` (now is a function). Now this value is **unique** per each enabled `BehaviorContainer`.
 
 ### Changed
 - modern code with classes
