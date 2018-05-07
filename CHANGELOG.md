@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- fixed CHANGELOG version.
 
+## [2.0.0]
 ### Added
-- BREAKING: renamed `BehaviorContainer#id` to `BehaviorContainer#getID()` (now is a function). Now this value is **unique** per each enabled `BehaviorContainer`.
+- BREAKING: renamed `BehaviorContainer#id` to `BehaviorContainer#getID() -> int` (now is a function). Now this value is **unique** per each enabled `BehaviorContainer`.
 
 ### Changed
 - modern code with classes
