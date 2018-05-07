@@ -14,12 +14,13 @@
   },
   "scripts": {
     "lint": "standard",
-    "test": "npm run lint && tape test/**/*.js | tap-dot",
+    "test": "tape test/**/*.js | tap-dot",
     "coverage": "istanbul cover tape test/**/*.js",
-    "dev": "npm test && watchify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js -v",
-    "build": "npm test && browserify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js && npm run min",
+    "dev": "watchify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js -v",
     "min": "uglifyjs dist/behavior-system.js -cm -o dist/behavior-system.min.js",
-    "prepublishOnly": "npm run build"
+    "build": "browserify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js",
+    "dist": "run-s lint test build min",
+    "prepublishOnly": "npm run dist"
   },
   "tonicExampleFilename": "example.js",
   "keywords": [
@@ -38,6 +39,7 @@
     "babelify": "^8.0.0",
     "browserify": "^16.2.0",
     "istanbul": "^0.4.5",
+    "npm-run-all": "^4.1.3",
     "standard": "^11.0.1",
     "tap-dot": "^1.0.5",
     "tape": "^4.9.0",
@@ -59,7 +61,12 @@
         "babelify",
         {
           "presets": [
-            [ "babel-preset-env", { "loose": true} ]
+            [
+              "babel-preset-env",
+              {
+                "loose": true
+              }
+            ]
           ]
         }
       ]
