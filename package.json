@@ -11,7 +11,7 @@
   },
   "bugs": "https://github.com/luizbills/behavior-system/issues",
   "contributors": [
-    { "name": "Luiz Bills", "email": "luizpbills@gmail.com", "url": "http://luizpb.com" }
+    { "name": "Luiz Bills", "email": "luizpbills@gmail.com", "url": "http://luizpb.com" },
     { "name": "Oli4242", "url": "https://github.com/Oli4242" }
   ],
   "scripts": {
