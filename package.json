@@ -11,13 +11,20 @@
   },
   "bugs": "https://github.com/luizbills/behavior-system/issues",
   "contributors": [
-    { "name": "Luiz Bills", "email": "luizpbills@gmail.com", "url": "http://luizpb.com" },
-    { "name": "Oli4242", "url": "https://github.com/Oli4242" }
+    {
+      "name": "Luiz Bills",
+      "email": "luizpbills@gmail.com",
+      "url": "http://luizpb.com"
+    },
+    {
+      "name": "Oli4242",
+      "url": "https://github.com/Oli4242"
+    }
   ],
   "scripts": {
     "lint": "standard",
     "test": "tape test/**/*.js | tap-dot",
-    "coverage": "istanbul cover tape test/**/*.js",
+    "coverage": "istanbul cover ./node_modules/.bin/tape test/**/*.js --reporter lcovonly -- -R spec",
     "dev": "watchify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js -v",
     "min": "uglifyjs dist/behavior-system.js -cm -o dist/behavior-system.min.js",
     "build": "browserify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js",
@@ -73,5 +80,6 @@
         }
       ]
     ]
-  }
+  },
+  "dependencies": {}
 }
