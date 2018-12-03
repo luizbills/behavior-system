@@ -43,8 +43,8 @@
     "component"
   ],
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.6.1",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
     "babelify": "^10.0.0",
     "browserify": "^16.2.0",
     "istanbul": "^0.4.5",
@@ -62,7 +62,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=6.x"
+    "node": ">=10.x"
   },
   "browserify": {
     "transform": [
@@ -71,7 +71,7 @@
         {
           "presets": [
             [
-              "babel-preset-env",
+              "@babel/preset-env",
               {
                 "loose": true
               }
