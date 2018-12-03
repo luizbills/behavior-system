@@ -5,6 +5,7 @@
 [![dependencies Status](https://david-dm.org/luizbills/behavior-system/status.svg)](https://david-dm.org/luizbills/behavior-system)
 [![Known Vulnerabilities](https://snyk.io/test/github/luizbills/behavior-system/badge.svg?targetFile=package.json)](https://snyk.io/test/github/luizbills/behavior-system?targetFile=package.json)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![codecov](https://codecov.io/gh/luizbills/behavior-system/branch/master/graph/badge.svg)](https://codecov.io/gh/luizbills/behavior-system)
 
 *A behavior system for javascript games inspired by Construct 2.*
 
