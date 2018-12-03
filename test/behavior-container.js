@@ -327,7 +327,8 @@ test('BehaviorContainer#process', function (assert) {
     expected,
     entity,
     container,
-    Behavior
+    Behavior,
+    extras
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
@@ -338,15 +339,45 @@ test('BehaviorContainer#process', function (assert) {
   expected = 10
   assert.equal(actual, expected, 'should call the determined method (second argument) from behavior with the key (first argument) of the container')
 
-  const extras = [1, 2, 3, 4]
-  entity = { val: 0 }
+  extras = [1]
+  entity = { val: null }
   container = new BehaviorContainer(entity)
-  Behavior = { update: (entity, opts, a, b, c, d) => (entity.val = [a, c, b, d]) }
+  Behavior = { update: (entity, opts, a) => (entity.val = [a]) }
   container.set('b', Behavior)
-  container.process('b', 'update', extras[0], extras[2], extras[1], extras[3])
+  container.process('b', 'update', ...extras)
   actual = entity.val
   expected = extras
-  assert.deepEqual(actual, expected, 'should pass extra arguments to the methods')
+  assert.deepEqual(actual, expected, 'should accept 1 extra argument')
+
+  extras = [1, 2]
+  entity = { val: null }
+  container = new BehaviorContainer(entity)
+  Behavior = { update: (entity, opts, a, b) => (entity.val = [a, b]) }
+  container.set('b', Behavior)
+  container.process('b', 'update', ...extras)
+  actual = entity.val
+  expected = extras
+  assert.deepEqual(actual, expected, 'should accept 2 extra arguments')
+
+  extras = [1, 2, 3]
+  entity = { val: null }
+  container = new BehaviorContainer(entity)
+  Behavior = { update: (entity, opts, a, b, c) => (entity.val = [a, b, c]) }
+  container.set('b', Behavior)
+  container.process('b', 'update', ...extras)
+  actual = entity.val
+  expected = extras
+  assert.deepEqual(actual, expected, 'should accept 3 extra arguments')
+
+  extras = [1, 2, 3, 4]
+  entity = { val: null }
+  container = new BehaviorContainer(entity)
+  Behavior = { update: (entity, opts, a, b, c, d) => (entity.val = [a, b, c, d]) }
+  container.set('b', Behavior)
+  container.process('b', 'update', ...extras)
+  actual = entity.val
+  expected = extras
+  assert.deepEqual(actual, expected, 'should accept 4 or more extra arguments')
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
