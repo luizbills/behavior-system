@@ -1,6 +1,6 @@
 {
   "name": "behavior-system",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A behavior system for javascript games inspired by Construct 2",
   "main": "lib/behavior-system.js",
   "author": "Luiz Bills",
@@ -22,8 +22,8 @@
     }
   ],
   "scripts": {
-    "lint": "standard",
-    "test": "tape test/**/*.js | tap-dot",
+    "lint": "standard --fix",
+    "test": "npm run lint && tape test/**/*.js | tap-dot",
     "coverage": "istanbul cover ./node_modules/.bin/tape test/**/*.js --reporter lcovonly -- -R spec",
     "dev": "watchify lib/behavior-system.js -s BehaviorSystem -o dist/behavior-system.js -v",
     "min": "uglifyjs dist/behavior-system.js -cm -o dist/behavior-system.min.js",

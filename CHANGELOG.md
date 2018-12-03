@@ -5,8 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [2.0.1]
+### Removed
+- removed some unused pices of code in `lib/behavior-system.js`
+
 ### Fixed
 - fixed CHANGELOG version.
+
+### Security
+- code coverage now is 100%!
 
 ## [2.0.0]
 ### Added
