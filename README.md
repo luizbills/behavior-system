@@ -1,10 +1,12 @@
 # Behavior System
 
-[![npm version](https://badge.fury.io/js/behavior-system.svg)](https://badge.fury.io/js/behavior-system)
+[![npm version](https://badgen.net/npm/v/behavior-system)](https://npmjs.org/package/behavior-system)
+[![Bundlephobia](https://badgen.net/bundlephobia/minzip/behavior-system)](https://bundlephobia.com/result?p=behavior-system@latest)
 [![Build Status](https://travis-ci.org/luizbills/behavior-system.svg?branch=master)](https://travis-ci.org/luizbills/behavior-system)
 [![codecov](https://codecov.io/gh/luizbills/behavior-system/branch/master/graph/badge.svg)](https://codecov.io/gh/luizbills/behavior-system)
 [![Known Vulnerabilities](https://snyk.io/test/github/luizbills/behavior-system/badge.svg?targetFile=package.json)](https://snyk.io/test/github/luizbills/behavior-system?targetFile=package.json)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 
 
 *A behavior system for javascript games inspired by Construct 2.*
