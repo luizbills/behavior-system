@@ -8,7 +8,7 @@ cache:
     - "/home/travis/.npm/"
 
 install:
-  - npm ci
+  - npm i
   - npm install -g codecov
 
 script:
