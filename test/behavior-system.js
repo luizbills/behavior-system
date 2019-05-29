@@ -84,13 +84,13 @@ test('BehaviorSystem#disable', function (assert) {
 
   entity = { val: 0 }
   system.enable(entity)
-  entity.behaviors.set('b', { destroy: (entity) => entity.val++ })
-  entity.behaviors.set('b2', { destroy: (entity) => entity.val++ })
-  entity.behaviors.set('b3', { destroy: (entity) => entity.val++ })
+  entity.behaviors.set('b', { $destroy: (entity) => entity.val++ })
+  entity.behaviors.set('b2', { $destroy: (entity) => entity.val++ })
+  entity.behaviors.set('b3', { $destroy: (entity) => entity.val++ })
   system.disable(entity)
   actual = entity.val
   expected = 3
-  assert.equal(actual, expected, 'should remove and call the method "destroy" of all behavior instances of entity when the system successful disabled the entity')
+  assert.equal(actual, expected, 'should remove and call the `$destroy` method of all behavior instances of entity when the system successful disabled the entity')
 
   assert.end()
 })
