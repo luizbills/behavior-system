@@ -251,6 +251,30 @@ test('BehaviorContainer#resume', function (assert) {
   assert.end()
 })
 
+test('BehaviorContainer#toogle', function (assert) {
+  let actual,
+    expected,
+    entity,
+    container,
+    Behavior
+
+  entity = {
+    x: 0
+  }
+  container = new BehaviorContainer(entity)
+  Behavior = {
+    $pause: (entity) => (entity.x += 10),
+    $resume: (entity) => (entity.x += 10)
+  }
+  container.set('b', Behavior)
+  container.toogle('b')
+  container.toogle('b')
+  
+  actual = entity.x
+  expected = 20
+  assert.equal(actual, expected, 'should call .pause if paused or .resume if not paused')
+})
+
 test('BehaviorContainer#pauseAll', function (assert) {
   let actual,
     expected,
