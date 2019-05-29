@@ -56,7 +56,7 @@
     "watchify": "^3.11.0"
   },
   "files": [
-    "example.js",
+    "runkit-example.js",
     "lib/",
     "dist/",
     "LICENSE"
