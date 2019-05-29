@@ -11,7 +11,7 @@ test('BehaviorContainer#set', function (assert) {
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
-  Behavior = { create: (entity) => ++entity.val }
+  Behavior = { $create: (entity) => ++entity.val }
   container.set('b', Behavior)
   actual = entity.val
   expected = 1
@@ -21,7 +21,7 @@ test('BehaviorContainer#set', function (assert) {
   container = new BehaviorContainer(entity)
   Behavior = {
     options: { val: 10 },
-    create: (entity, opts) => (entity.val = opts.val)
+    $create: (entity, opts) => (entity.val = opts.val)
   }
   container.set('b', Behavior)
   actual = entity.val
@@ -32,7 +32,7 @@ test('BehaviorContainer#set', function (assert) {
   container = new BehaviorContainer(entity)
   Behavior = {
     options: { val: 10 },
-    create: (entity, opts) => (entity.val = opts.val)
+    $create: (entity, opts) => (entity.val = opts.val)
   }
   container.set('b', Behavior, { val: 20 })
   actual = entity.val
@@ -42,7 +42,7 @@ test('BehaviorContainer#set', function (assert) {
   entity = { o: null }
   container = new BehaviorContainer(entity)
   Behavior = {
-    create: (entity, opts) => (entity.o = opts)
+    $create: (entity, opts) => (entity.o = opts)
   }
   container.set('b', Behavior)
   actual = JSON.stringify(entity.o)
@@ -78,7 +78,7 @@ test('BehaviorContainer#remove', function (assert) {
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
-  Behavior = { destroy: (entity) => (entity.val = 10) }
+  Behavior = { $destroy: (entity) => (entity.val = 10) }
   container.set('b', Behavior)
   container.remove('b')
   actual = entity.val
@@ -186,7 +186,7 @@ test('BehaviorContainer#pause', function (assert) {
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    paused: (entity) => (entity.x = 10)
+    $pause: (entity) => (entity.x = 10)
   }
   container.set('b', Behavior)
   container.pause('b')
@@ -199,7 +199,7 @@ test('BehaviorContainer#pause', function (assert) {
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    paused: (entity) => (entity.x += 10)
+    $pause: (entity) => (entity.x += 10)
   }
   container.set('b', Behavior)
   container.pause('b')
@@ -224,7 +224,7 @@ test('BehaviorContainer#resume', function (assert) {
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    resumed: (entity) => (entity.x = 10)
+    $resume: (entity) => (entity.x = 10)
   }
   container.set('b', Behavior)
   container.pause('b')
@@ -238,7 +238,7 @@ test('BehaviorContainer#resume', function (assert) {
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    resumed: (entity) => (entity.x += 10)
+    $resume: (entity) => (entity.x += 10)
   }
   container.set('b', Behavior)
   container.pause('b')
