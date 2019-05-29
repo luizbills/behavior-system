@@ -12,6 +12,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Security
 
+## [v3.0.5]
+### Fixed
+- publish correct CHANGELOG
+
+## [v3.0.4]
+### Fixed
+- fix RunKit example
+
+## [v3.0.0]
+### Added
+- added `BehaviorContainer#toogle(key) -> boolean`
+
+### Changed
+- now all native actions has `$` as prefix (e.g.: `$create` instead of `create`)
+
 ## [2.0.1]
 ### Removed
 - removed some unused pices of code in `lib/behavior-system.js`
