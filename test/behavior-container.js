@@ -11,17 +11,17 @@ test('BehaviorContainer#set', function (assert) {
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
-  Behavior = { create: (entity) => ++entity.val }
+  Behavior = { $create: (entity) => ++entity.val }
   container.set('b', Behavior)
   actual = entity.val
   expected = 1
-  assert.equal(actual, expected, 'should call the method `create` (if exists) of the newly behavior instance')
+  assert.equal(actual, expected, 'should call the method `$create` (if exists) of the newly behavior instance')
 
   entity = {}
   container = new BehaviorContainer(entity)
   Behavior = {
     options: { val: 10 },
-    create: (entity, opts) => (entity.val = opts.val)
+    $create: (entity, opts) => (entity.val = opts.val)
   }
   container.set('b', Behavior)
   actual = entity.val
@@ -32,7 +32,7 @@ test('BehaviorContainer#set', function (assert) {
   container = new BehaviorContainer(entity)
   Behavior = {
     options: { val: 10 },
-    create: (entity, opts) => (entity.val = opts.val)
+    $create: (entity, opts) => (entity.val = opts.val)
   }
   container.set('b', Behavior, { val: 20 })
   actual = entity.val
@@ -42,7 +42,7 @@ test('BehaviorContainer#set', function (assert) {
   entity = { o: null }
   container = new BehaviorContainer(entity)
   Behavior = {
-    create: (entity, opts) => (entity.o = opts)
+    $create: (entity, opts) => (entity.o = opts)
   }
   container.set('b', Behavior)
   actual = JSON.stringify(entity.o)
@@ -78,12 +78,12 @@ test('BehaviorContainer#remove', function (assert) {
 
   entity = { val: 0 }
   container = new BehaviorContainer(entity)
-  Behavior = { destroy: (entity) => (entity.val = 10) }
+  Behavior = { $destroy: (entity) => (entity.val = 10) }
   container.set('b', Behavior)
   container.remove('b')
   actual = entity.val
   expected = 10
-  assert.equal(actual, expected, 'should call the method `destroy` (if exists) of the removed behavior instance')
+  assert.equal(actual, expected, 'should call the method `$destroy` (if exists) of the removed behavior instance')
 
   entity = {}
   container = new BehaviorContainer(entity)
@@ -186,20 +186,20 @@ test('BehaviorContainer#pause', function (assert) {
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    paused: (entity) => (entity.x = 10)
+    $pause: (entity) => (entity.x = 10)
   }
   container.set('b', Behavior)
   container.pause('b')
   actual = entity.x
   expected = 10
-  assert.equal(actual, expected, 'should call the method `paused` (if exists) of the paused behavior instance')
+  assert.equal(actual, expected, 'should call the `$pause` method (if exists) of the paused behavior instance')
 
   entity = {
     x: 0
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    paused: (entity) => (entity.x += 10)
+    $pause: (entity) => (entity.x += 10)
   }
   container.set('b', Behavior)
   container.pause('b')
@@ -207,7 +207,7 @@ test('BehaviorContainer#pause', function (assert) {
   container.pause('b')
   actual = entity.x
   expected = 10
-  assert.equal(actual, expected, 'should not call the method `paused` (if exists) again of a already paused behavior instance')
+  assert.equal(actual, expected, 'should not call the `$pause` method (if exists) again of a already paused behavior instance')
 
   assert.end()
 })
@@ -224,21 +224,21 @@ test('BehaviorContainer#resume', function (assert) {
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    resumed: (entity) => (entity.x = 10)
+    $resume: (entity) => (entity.x = 10)
   }
   container.set('b', Behavior)
   container.pause('b')
   container.resume('b')
   actual = entity.x
   expected = 10
-  assert.equal(actual, expected, 'should call the method `resumed` (if exists) of the resumed behavior instance')
+  assert.equal(actual, expected, 'should call the `$resume` method (if exists) of the resumed behavior instance')
 
   entity = {
     x: 0
   }
   container = new BehaviorContainer(entity)
   Behavior = {
-    resumed: (entity) => (entity.x += 10)
+    $resume: (entity) => (entity.x += 10)
   }
   container.set('b', Behavior)
   container.pause('b')
@@ -246,7 +246,33 @@ test('BehaviorContainer#resume', function (assert) {
   container.resume('b')
   actual = entity.x
   expected = 10
-  assert.equal(actual, expected, 'should not call the method `resumed` (if exists) again of a already resumed behavior instance')
+  assert.equal(actual, expected, 'should not call the `$resume` method (if exists) again of a already resumed behavior instance')
+
+  assert.end()
+})
+
+test('BehaviorContainer#toogle', function (assert) {
+  let actual,
+    expected,
+    entity,
+    container,
+    Behavior
+
+  entity = {
+    x: 0
+  }
+  container = new BehaviorContainer(entity)
+  Behavior = {
+    $pause: (entity) => (entity.x += 10),
+    $resume: (entity) => (entity.x += 10)
+  }
+  container.set('b', Behavior)
+  container.toogle('b')
+  container.toogle('b')
+
+  actual = entity.x
+  expected = 20
+  assert.equal(actual, expected, 'should call .pause if paused or .resume if not paused')
 
   assert.end()
 })
@@ -271,7 +297,7 @@ test('BehaviorContainer#pauseAll', function (assert) {
   assert.end()
 })
 
-test('BehaviorContainer#pauseAll', function (assert) {
+test('BehaviorContainer#resumeAll', function (assert) {
   let actual,
     expected,
     entity,
