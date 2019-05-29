@@ -273,6 +273,8 @@ test('BehaviorContainer#toogle', function (assert) {
   actual = entity.x
   expected = 20
   assert.equal(actual, expected, 'should call .pause if paused or .resume if not paused')
+  
+  assert.end()
 })
 
 test('BehaviorContainer#pauseAll', function (assert) {
