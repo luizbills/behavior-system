@@ -12,15 +12,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Security
 
-## [v3.0.5]
+## [v3.0.5] - 2019-05-29
 ### Fixed
 - publish correct CHANGELOG
 
-## [v3.0.4]
+## [v3.0.4] - 2019-05-29
 ### Fixed
 - fix RunKit example
 
-## [v3.0.0]
+## [v3.0.0] - 2019-05-29
 ### Added
 - added `BehaviorContainer#toogle(key) -> boolean`
 
