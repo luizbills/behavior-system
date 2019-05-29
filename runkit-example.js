@@ -1,4 +1,4 @@
-const BehaviorSystem = require('./lib/behavior-system')
+const BehaviorSystem = require('behavior-system')
 
 const Movement = {
   options: {
