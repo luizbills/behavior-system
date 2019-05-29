@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - added `BehaviorContainer#toogle(key) -> boolean`
 
 ### Changed
-- now all native actions has `$` as prefix (e.g.: `$create` instead of `create`)
+- BREAKING: now all native actions has `$` as prefix (e.g.: `$create` instead of `create`)
 
 ## [2.0.1]
 ### Removed
