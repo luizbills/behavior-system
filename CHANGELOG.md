@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - BREAKING: now all native actions has `$` as prefix (e.g.: `$create` instead of `create`)
+	- BREAKING: `create` action changed to `$create`
+	- BREAKING: `destroy` action changed to `$destroy`
+- BREAKING: `resumed` action changed to `$resume`
+- BREAKING: `paused` action changed to `$pause`
 
 ## [2.0.1]
 ### Removed
