@@ -269,11 +269,11 @@ test('BehaviorContainer#toogle', function (assert) {
   container.set('b', Behavior)
   container.toogle('b')
   container.toogle('b')
-  
+
   actual = entity.x
   expected = 20
   assert.equal(actual, expected, 'should call .pause if paused or .resume if not paused')
-  
+
   assert.end()
 })
 
