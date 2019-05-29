@@ -1,6 +1,6 @@
 {
   "name": "behavior-system",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A behavior system for javascript games inspired by Construct 2",
   "main": "lib/behavior-system.js",
   "author": "Luiz Bills",
@@ -31,7 +31,7 @@
     "dist": "run-s lint test build min",
     "prepublishOnly": "npm run dist"
   },
-  "tonicExampleFilename": "example.js",
+  "tonicExampleFilename": "runkit-example.js",
   "keywords": [
     "game",
     "behavior",
