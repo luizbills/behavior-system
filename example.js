@@ -19,13 +19,13 @@ const Movement = {
     return { x: entity.x, y: entity.y }
   },
 
-  create: function (entity, opts) {
+  $create: function (entity, opts) {
     // called when an instance of this Behavior is added on a game object
     console.log('created a BehaviorMovement with key:', opts.$key)
     // hint: opts.$key is avaliable in any behavior instance
   },
 
-  destroy: function (entity, opts) {
+  $destroy: function (entity, opts) {
     // called when an instance of this Behavior is removed of a game object
     console.log('destroyed a BehaviorMovement with key:', opts.$key)
   }
